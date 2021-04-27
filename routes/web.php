@@ -20,3 +20,7 @@ Route::get('/', function () {
         'author' => 'Adit'
     ]);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

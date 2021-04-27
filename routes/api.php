@@ -23,7 +23,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Bencana
 Route::get('/bencana','BencanaController@infoBencana');
-Route::post('/tambah-bencana', 'BencanaController@tambahBencana');
+Route::post('/bencana', 'BencanaController@tambahBencana');
+Route::put('/bencana/{id}', 'BencanaController@ubahBencana');
+Route::delete('/bencana/{id}', 'BencanaController@hapusBencana');
+
 
 //Posko
 Route::get('/posko', 'PoskoController@infoPosko');

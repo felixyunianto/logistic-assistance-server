@@ -50,6 +50,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($request->is('api/*')) {
+            return response()->json([
+                'message' => 'Terjadi kesalahan',
+                'status' => 401,
+                'error' => 'Login terlebih dahulu'
+            ], 401);
+        }
+
         return parent::render($request, $exception);
     }
 }
