@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/register', 'UserController@register');
+Route::post('/login', 'UserController@login');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Bencana
+Route::get('/bencana','BencanaController@infoBencana');
+Route::post('/tambah-bencana', 'BencanaController@tambahBencana');
+
+//Posko
+Route::get('/posko', 'PoskoController@infoPosko');
+
+//Penerimaan Logistikk
+Route::get('/penerimaan-logistik', 'PenerimaanLogistikController@dataPenerimaanLogistik');
+
+//Donatur
+Route::get('/donatur', 'DonaturController@infoDonatur');
