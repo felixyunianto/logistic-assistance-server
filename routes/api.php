@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::fallback(function () {
+    return response()->json([
+        'message' => 'Terjadi kesalahan',
+        'status' => 404,
+        'error' => 'Endpoint tidak ditemukan'
+    ], 404);
+});
+
 
 Route::post('/register', 'UserController@register');
 Route::post('/login', 'UserController@login');
@@ -30,6 +38,9 @@ Route::delete('/bencana/{id}', 'BencanaController@hapusBencana');
 
 //Posko
 Route::get('/posko', 'PoskoController@infoPosko');
+Route::post('/posko', 'PoskoController@tambahPosko');
+Route::put('/posko/{id}', 'PoskoController@ubahPosko');
+Route::delete('/posko/{id}', 'PoskoController@hapusPosko');
 
 //Penerimaan Logistikk
 Route::get('/penerimaan-logistik', 'PenerimaanLogistikController@dataPenerimaanLogistik');

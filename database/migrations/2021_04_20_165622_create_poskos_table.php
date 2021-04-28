@@ -15,7 +15,6 @@ class CreatePoskosTable extends Migration
     {
         Schema::create('poskos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
             $table->string('nama');
             $table->integer('jumlah_pengungsi');
             $table->char('kontak_hp',14);
@@ -23,6 +22,10 @@ class CreatePoskosTable extends Migration
             $table->decimal('longitude', $precision = 9, $scale = 6);
             $table->decimal('latitude', $precision = 8, $scale = 6);
             $table->timestamps();
+        });
+
+        Schema::table('users', function(Blueprint $table) {
+            $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 
