@@ -21,9 +21,7 @@ Route::fallback(function () {
     ], 404);
 });
 
-
-Route::post('/register', 'UserController@register');
-Route::post('/login', 'UserController@login');
+Route::post('/login', 'AuthController@login');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -47,3 +45,13 @@ Route::get('/penerimaan-logistik', 'PenerimaanLogistikController@dataPenerimaanL
 
 //Donatur
 Route::get('/donatur', 'DonaturController@infoDonatur');
+Route::post('/donatur', 'DonaturController@tambahDonatur');
+Route::put('/donatur/{id}', 'DonaturController@ubahDonatur');
+Route::delete('/donatur/{id}', 'DonaturController@hapusDonatur');
+
+
+//Petugas Posko
+Route::get('/petugas-posko', 'UserController@infoPetugasPosko');
+Route::post('/petugas-posko', 'UserController@tambahPetugasPosko');
+Route::put('/petugas-posko/{id}', 'UserController@ubahPetugasPosko');
+Route::delete('/petugas-posko/{id}', 'UserController@hapusPetugasPosko');

@@ -2,15 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
 use Validator;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
 {
-    public function register(Request $request) {
+
+    public function __construct(){
+        $this->middleware('auth:api');
+    }
+
+    public function infoPetugasPosko() {
+        if(Auth::user()->level !== 'Admin'){
+            return response()->json([
+                'message' => 'Terjadi kesalahan',
+                'status' => 403,
+                'error' => 'Akses ini hanya dimiliki oleh admin'
+            ],403);
+        }
+
+        $data_petugas_posko = User::where('level', 'Petugas')->orderBy('nama', 'ASC')->get();
+
+        return response()->json([
+            'message' => 'Berhasil menampilkan data petugas posko',
+            'status' => 200,
+            'data' => $data_petugas_posko
+        ],200);
+    }
+
+    public function tambahPetugasPosko(Request $request) {
+        if(Auth::user()->level !== 'Admin'){
+            return response()->json([
+                'message' => 'Terjadi kesalahan',
+                'status' => 403,
+                'error' => 'Akses ini hanya dimiliki oleh admin'
+            ],403);
+        }
+
         $validation = Validator::make($request->all(), [
             'nama' => 'required',
             'username' => 'required | unique:users',
@@ -58,46 +89,55 @@ class UserController extends Controller
         ];
 
         return response()->json([
-            'message' => 'Registrasi berhasil',
+            'message' => 'Berhasil menambahkan petugas posko',
             'status' => 200,
             'data' => $respon   
         ], 200);
     }
 
-    public function login(Request $request) {
-        $rules = [
-            'username' => 'required',
-            'password' => 'required'
-        ];
-
-        $messages = [
-            'required' => ':attribute tidak boleh kosong'
-        ];
-        $validation = Validator::make($request->all(),$rules, $messages);
-
-        if($validation->fails()) {
+    public function ubahPetugasPosko(Request $request, $id){
+        if(Auth::user()->level !== 'Admin'){
             return response()->json([
                 'message' => 'Terjadi kesalahan',
-                'status' => 401,
-                'error' => $validation->errors()
-            ], 401);
+                'status' => 403,
+                'error' => 'Akses ini hanya dimiliki oleh admin'
+            ],403);
         }
 
-        if(Auth::attempt(['username' => $request->username,'password' => $request->password])){
-            $user = Auth::user();
-            $user['token'] = $user->createToken('LogistikBrebes')->accessToken;
+        $data_petugas_posko = User::findOrFail($id);
+        $data_petugas_posko->update([
+            'nama' => $request->nama,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'level' => $request->level,
+            'id_posko' => $request->id_posko,
+        ]);
 
-            return response()->json([
-                'message' => 'Login berhasil',
-                'status' => 200,
-                'data' => $user
-            ]);
-        }else{
-            return response()->json([
-                'message'=>'Login gagal',
-                'status' => 401,
-                'error' => 'Username or Password is salah'
-            ], 401); 
-        }
+        return response()->json([
+            'message' => 'Berhasil mengubah data petugas posko',
+            'status' => 200,
+            'data' => $data_petugas_posko
+        ], 200);
     }
+
+    public function hapusPetugasPosko($id) {
+        if(Auth::user()->level !== 'Admin'){
+            return response()->json([
+                'message' => 'Terjadi kesalahan',
+                'status' => 403,
+                'error' => 'Akses ini hanya dimiliki oleh admin'
+            ],403);
+        }
+        
+        $data_petugas_posko = User::findOrFail($id);
+        $data_petugas_posko->delete();
+
+        return response()->json([
+            'message' => 'Berhasil menghapus data petugas posko',
+            'status' => 200,
+            'data' => $data_petugas_posko
+        ], 200);
+    }
+
+    
 }
