@@ -41,7 +41,10 @@ Route::put('/posko/{id}', 'PoskoController@ubahPosko');
 Route::delete('/posko/{id}', 'PoskoController@hapusPosko');
 
 //Penerimaan Logistikk
-Route::get('/penerimaan-logistik', 'PenerimaanLogistikController@dataPenerimaanLogistik');
+Route::get('/penerimaan-logistik', 'PenerimaanLogistikController@infoPenerimaanLogistik');
+Route::post('/penerimaan-logistik', 'PenerimaanLogistikController@tambahPenerimaanLogistik');
+Route::put('/penerimaan-logistik/{id}', 'PenerimaanLogistikController@ubahPenerimaanLogistik');
+Route::delete('/penerimaan-logistik/{id}', 'PenerimaanLogistikController@hapusPenerimaanLogistik');
 
 //Donatur
 Route::get('/donatur', 'DonaturController@infoDonatur');
