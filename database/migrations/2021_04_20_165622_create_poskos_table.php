@@ -19,8 +19,8 @@ class CreatePoskosTable extends Migration
             $table->integer('jumlah_pengungsi');
             $table->char('kontak_hp',14);
             $table->text('lokasi');
-            $table->decimal('longitude', $precision = 9, $scale = 6);
-            $table->decimal('latitude', $precision = 8, $scale = 6);
+            $table->string('longitude');
+            $table->string('latitude');
             $table->timestamps();
         });
 
