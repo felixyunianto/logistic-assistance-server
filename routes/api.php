@@ -58,3 +58,9 @@ Route::get('/petugas-posko', 'UserController@infoPetugasPosko');
 Route::post('/petugas-posko', 'UserController@tambahPetugasPosko');
 Route::put('/petugas-posko/{id}', 'UserController@ubahPetugasPosko');
 Route::delete('/petugas-posko/{id}', 'UserController@hapusPetugasPosko');
+
+//KebutuhanLogitik
+Route::get('/kebutuhan-logistik', 'KebutuhanLogistikController@infoKebutuhanLogistik');
+Route::post('/kebutuhan-logistik', 'KebutuhanLogistikController@tambahKebutuhanLogistik');
+Route::put('/kebutuhan-logistik/{id}', 'KebutuhanLogistikController@ubahKebutuhanLogistik');
+Route::delete('/kebutuhan-logistik/{id}', 'KebutuhanLogistikController@hapusKebutuhanLogistik');

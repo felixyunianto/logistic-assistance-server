@@ -7,6 +7,9 @@ use App\Bencana;
 use Validator;
 use Auth;
 
+use Cloudinary;
+use Carbon\Carbon;
+
 class BencanaController extends Controller
 {
 
@@ -37,6 +40,8 @@ class BencanaController extends Controller
 
         $validation = Validator::make($request->all(), $rules, $messages);
 
+        $fileName = Carbon::now()->format('Y-m-d H:i:s').'-'.$request->nama;
+
         if($validation->fails()){
             return response()->json([
                 'message' => 'Terjadi kesalahan',
@@ -53,9 +58,15 @@ class BencanaController extends Controller
             ],403);
         }
 
+        $uploadedFile = $request->file('foto')->storeOnCloudinaryAs('Adit/Bencana',$fileName);
+
+        $foto = $uploadedFile->getSecurePath();
+        $public_id = $uploadedFile->getPublicId();
+
         $data_bencana = Bencana::create([
             'nama' => $request->nama,
-            'foto' => $request->foto,
+            'foto' => $foto,
+            'public_id_image' => $public_id, 
             'detail' => $request->detail,
             'date' => $request->date,
         ]);
@@ -77,9 +88,23 @@ class BencanaController extends Controller
         }
 
         $data_bencana = Bencana::findOrFail($id);
+
+        
+        if($request->foto){
+            $fileName = Carbon::now()->format('Y-m-d H:i:s').'-'.$request->nama;
+            
+            Cloudinary::destroy($data_bencana->public_id_image);
+
+            $uploadedFile = $request->file('foto')->storeOnCloudinaryAs('Adit/Bencana',$fileName);
+
+            $foto = $uploadedFile->getSecurePath();
+            $public_id = $uploadedFile->getPublicId();
+        }
+
         $data_bencana->update([
             'nama' => $request->nama,
-            'foto' => $request->foto,
+            'foto' => $request->foto ? $foto : $data_bencana->foto,
+            'public_id_image' => $request->foto ? $public_id : $data_bencana->public_id_image, 
             'detail' => $request->detail,
             'date' => $request->date,
         ]);
@@ -101,6 +126,9 @@ class BencanaController extends Controller
         }
 
         $data_bencana = Bencana::findOrFail($id);
+        
+        Cloudinary::destroy($data_bencana->public_id_image);
+
         $data_bencana->delete();
 
         return response()->json([

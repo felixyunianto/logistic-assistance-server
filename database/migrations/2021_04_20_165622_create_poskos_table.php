@@ -23,10 +23,6 @@ class CreatePoskosTable extends Migration
             $table->string('latitude');
             $table->timestamps();
         });
-
-        Schema::table('users', function(Blueprint $table) {
-            $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');
-        });
     }
 
     /**

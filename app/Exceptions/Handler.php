@@ -61,13 +61,13 @@ class Handler extends ExceptionHandler
             return Route::respondWithRoute('fallback');
         }
 
-        if($request->header('Authorization') === null){
-            return response()->json([
-                'message' => 'Terjadi kesalahan',
-                'status' => 401,
-                'error' => 'Login terlebih dahulu'
-            ], 401);
-        }
+        // if($request->header('Authorization') === null){
+        //     return response()->json([
+        //         'message' => 'Terjadi kesalahan',
+        //         'status' => 401,
+        //         'error' => 'Login terlebih dahulu'
+        //     ], 401);
+        // }
         return parent::render($request, $exception);
     }
 }
