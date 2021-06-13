@@ -64,3 +64,9 @@ Route::get('/kebutuhan-logistik', 'KebutuhanLogistikController@infoKebutuhanLogi
 Route::post('/kebutuhan-logistik', 'KebutuhanLogistikController@tambahKebutuhanLogistik');
 Route::put('/kebutuhan-logistik/{id}', 'KebutuhanLogistikController@ubahKebutuhanLogistik');
 Route::delete('/kebutuhan-logistik/{id}', 'KebutuhanLogistikController@hapusKebutuhanLogistik');
+
+//LogistikKeluar
+Route::get('/logistik-keluar', 'LogistikKeluarController@infoLogistikKeluar')->middleware('auth:api');
+Route::post('/logistik-keluar', 'LogistikKeluarController@tambahLogistikKeluar');
+Route::put('/logistik-keluar/{id}', 'LogistikKeluarController@ubahLogistikKeluar');
+Route::delete('/logistik-keluar/{id}', 'LogistikKeluarController@hapusLogistikKeluar');

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Auth\AuthenticationException;
 
 
 class Handler extends ExceptionHandler
@@ -53,21 +54,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof NotFoundHttpException) {
-            return Route::respondWithRoute('fallback');
+
+        if($request->expectsJson()){
+            response()->json([
+                'message' => 'Terjadi kesalahan',
+                'status' => 401,
+                'error' => 'Login terlebih dahulu'
+            ], 401);
         }
 
-        if ($exception instanceof ModelNotFoundException) {
-            return Route::respondWithRoute('fallback');
-        }
-
-        // if($request->header('Authorization') === null){
-        //     return response()->json([
-        //         'message' => 'Terjadi kesalahan',
-        //         'status' => 401,
-        //         'error' => 'Login terlebih dahulu'
-        //     ], 401);
-        // }
         return parent::render($request, $exception);
     }
 }

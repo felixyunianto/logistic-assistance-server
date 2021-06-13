@@ -12,7 +12,7 @@ class UserController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except('tambahPetugasPosko');
     }
 
     public function infoPetugasPosko() {
@@ -34,14 +34,6 @@ class UserController extends Controller
     }
 
     public function tambahPetugasPosko(Request $request) {
-        if(Auth::user()->level !== 'Admin'){
-            return response()->json([
-                'message' => 'Terjadi kesalahan',
-                'status' => 403,
-                'error' => 'Akses ini hanya dimiliki oleh admin'
-            ],403);
-        }
-
         $validation = Validator::make($request->all(), [
             'nama' => 'required',
             'username' => 'required | unique:users',
@@ -64,6 +56,7 @@ class UserController extends Controller
         }
 
         $username = User::where('username', $request->username)->first();
+        
 
         if($username !== null){
             return response()->json([

@@ -12,12 +12,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'nama' => 'Administrator',
             'username' => 'admin',
             'password' => bcrypt(12345678),
             'level' => 'Admin',
             'id_posko' => null,
         ]);
+
+        $user->createToken('LogistikBrebes')->accessToken;
     }
 }
