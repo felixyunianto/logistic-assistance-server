@@ -56,7 +56,7 @@ class Handler extends ExceptionHandler
     {
 
         if($request->expectsJson()){
-            response()->json([
+            return response()->json([
                 'message' => 'Terjadi kesalahan',
                 'status' => 401,
                 'error' => 'Login terlebih dahulu'
