@@ -9,6 +9,9 @@ use Auth;
 
 class LogistikKeluarController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:api');
+    }
 
     public function infoLogistikKeluar(){
         $data_logistik_keluar = LogistikKeluar::orderBy('created_at', 'DESC')->get();
