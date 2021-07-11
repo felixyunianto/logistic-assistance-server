@@ -70,3 +70,8 @@ Route::get('/logistik-keluar', 'LogistikKeluarController@infoLogistikKeluar');
 Route::post('/logistik-keluar', 'LogistikKeluarController@tambahLogistikKeluar');
 Route::put('/logistik-keluar/{id}', 'LogistikKeluarController@ubahLogistikKeluar');
 Route::delete('/logistik-keluar/{id}', 'LogistikKeluarController@hapusLogistikKeluar');
+
+Route::get('/logistik-masuk', 'LogistikMasukController@infoLogistikMasuk');
+Route::post('/logistik-masuk', 'LogistikMasukController@tambahLogistikMasuk');
+Route::put('/logistik-masuk/{id}', 'LogistikMasukController@ubahLogistikMasuk');
+Route::delete('/logistik-masuk/{id}', 'LogistikMasukController@hapusLogistikMasuk');
