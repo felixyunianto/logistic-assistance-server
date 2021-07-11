@@ -98,7 +98,7 @@ class LogistikMasukController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Berhasil mengubah data logistik keluar',
+            'message' => 'Berhasil mengubah data logistik masuk',
             'status' => 200,
             'data' => $data_logistik_masuk
         ], 200);
@@ -110,7 +110,7 @@ class LogistikMasukController extends Controller
         $data_logistik_masuk->delete();
 
         return response()->json([
-            'message' => 'Berhasil hapus data logistik keluar',
+            'message' => 'Berhasil hapus data logistik masuk',
             'status' => 200,
             'data' => $data_logistik_masuk
         ], 200);
