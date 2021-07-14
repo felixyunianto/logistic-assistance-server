@@ -53,7 +53,8 @@ class PenerimaanLogistikController extends Controller
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
             'status' => 'Proses',
-            'tanggal' => $request->tanggal  
+            'tanggal' => $request->tanggal,
+            'satuan' => $request->satuan
         ]);
 
         return response()->json([
@@ -71,8 +72,9 @@ class PenerimaanLogistikController extends Controller
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
-            'status' => $data_penerimaan_logistik->status,
-            'tanggal' => $request->tanggal  
+            'status' => 'Proses',
+            'tanggal' => $request->tanggal,
+            'satuan' => $request->satuan
         ]);
 
         return response()->json([
