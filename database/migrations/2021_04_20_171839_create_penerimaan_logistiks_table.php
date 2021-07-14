@@ -16,9 +16,10 @@ class CreatePenerimaanLogistiksTable extends Migration
         Schema::create('penerimaan_logistiks', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_posko')->unsigned();
-            $table->string('jenis_kebutuhan');
+            $table->string('jenis_kebutuhan', 20);
             $table->text('keterangan');
             $table->integer('jumlah');
+            $table->enum('satuan', ['kg', 'liter','dus','unit','buah','ram','lembar','pasang','bungkus','karung','kodi','pak']);
             $table->enum('status', ['Proses', 'Terima']);
             $table->date('tanggal');
             $table->timestamps();

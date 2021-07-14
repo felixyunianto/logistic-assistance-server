@@ -15,7 +15,7 @@ class CreateBencanasTable extends Migration
     {
         Schema::create('bencanas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama', 30);
             $table->text('foto');
             $table->text('detail');
             $table->date('date');

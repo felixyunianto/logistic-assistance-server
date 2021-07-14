@@ -15,7 +15,7 @@ class CreateLogistikKeluarsTable extends Migration
     {
         Schema::create('logistik_keluars', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_kebutuhan');
+            $table->string('jenis_kebutuhan',20);
             $table->text('keterangan');
             $table->integer('jumlah');
             $table->string('pengirim');

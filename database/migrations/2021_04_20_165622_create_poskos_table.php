@@ -15,7 +15,7 @@ class CreatePoskosTable extends Migration
     {
         Schema::create('poskos', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama', 30);
             $table->integer('jumlah_pengungsi');
             $table->char('kontak_hp',14);
             $table->text('lokasi');

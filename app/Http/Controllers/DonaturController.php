@@ -15,10 +15,27 @@ class DonaturController extends Controller
     public function infoDonatur() {
         $data_donatur = Donatur::orderBy('nama')->get();
 
+        $results = [];
+
+        foreach($data_donatur as $donatur){
+            $results[] = [
+                'id' => $donatur->id,
+                'nama' => $donatur->nama,
+                'jenis_kebutuhan' => $donatur->jenis_kebutuhan,
+                'keterangan' => $donatur->keterangan,
+                'alamat' => $donatur->alamat,
+                'id_posko' => $donatur->id_posko,
+                'tanggal' => $donatur->tanggal,
+                'posko_penerima' => $donatur->posko->nama,
+                'created_at' => $donatur->created_at,
+                'updated_at' => $donatur->updated_at,
+            ];
+        }
+
         return response()->json([
             'message' => 'Berhasil menampilkan data donatur',
             'status' => 200,
-            'data' => $data_donatur
+            'data' => $results
         ],200);
     }
 

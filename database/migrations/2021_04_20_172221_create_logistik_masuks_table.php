@@ -15,12 +15,15 @@ class CreateLogistikMasuksTable extends Migration
     {
         Schema::create('logistik_masuks', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_kebutuhan');
+            $table->string('jenis_kebutuhan',20);
             $table->text('keterangan');
             $table->integer('jumlah');
             $table->string('pengirim');
             $table->bigInteger('id_posko')->unsigned();
+            $table->enum('status', ['Proses', 'Terima']);
             $table->date('tanggal');
+            $table->text('foto')->nullable();
+            $table->text('public_id')->nullable();
             $table->timestamps();
 
             $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');

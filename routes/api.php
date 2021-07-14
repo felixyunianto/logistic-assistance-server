@@ -72,6 +72,7 @@ Route::post('/logistik-keluar', 'LogistikKeluarController@tambahLogistikKeluar')
 Route::put('/logistik-keluar/{id}', 'LogistikKeluarController@ubahLogistikKeluar');
 Route::delete('/logistik-keluar/{id}', 'LogistikKeluarController@hapusLogistikKeluar');
 
+//Logistik Masuk
 Route::get('/logistik-masuk', 'LogistikMasukController@infoLogistikMasuk');
 Route::post('/logistik-masuk', 'LogistikMasukController@tambahLogistikMasuk');
 Route::put('/logistik-masuk/{id}', 'LogistikMasukController@ubahLogistikMasuk');

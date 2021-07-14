@@ -15,8 +15,8 @@ class CreateDonatursTable extends Migration
     {
         Schema::create('donaturs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('jenis_kebutuhan');
+            $table->string('nama', 100);
+            $table->string('jenis_kebutuhan', 20);
             $table->text('keterangan');
             $table->text('alamat');
             $table->bigInteger('id_posko')->unsigned();

@@ -55,13 +55,13 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
 
-        if($request->expectsJson()){
-            return response()->json([
-                'message' => 'Terjadi kesalahan',
-                'status' => 401,
-                'error' => 'Login terlebih dahulu'
-            ], 401);
-        }
+        // if($request->expectsJson()){
+        //     return response()->json([
+        //         'message' => 'Terjadi kesalahan',
+        //         'status' => 401,
+        //         'error' => 'Login terlebih dahulu'
+        //     ], 401);
+        // }
 
         return parent::render($request, $exception);
     }
