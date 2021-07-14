@@ -21,6 +21,16 @@ class KebutuhanLogistikController extends Controller
         ],200);
     }
 
+    public function infoKebutuhanLogistikByPosko($id){
+        $data_kebutuhan_logistik = KebutuhanLogistik::where('id_posko',$id)->get();
+
+        return response()->json([
+            'message' => 'Berhasil menampilkan kebutuhan logistik',
+            'status' => 200,
+            'data' => $data_kebutuhan_logistik
+        ],200);
+    }
+
     public function tambahKebutuhanLogistik(Request $request){
         $rules = [
             'id_posko' => 'required',

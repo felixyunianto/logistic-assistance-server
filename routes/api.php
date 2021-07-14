@@ -61,6 +61,7 @@ Route::delete('/petugas-posko/{id}', 'UserController@hapusPetugasPosko');
 
 //KebutuhanLogitik
 Route::get('/kebutuhan-logistik', 'KebutuhanLogistikController@infoKebutuhanLogistik');
+Route::get('/kebutuhan-logistik/posko/{id}','KebutuhanLogistikController@infoKebutuhanLogistikByPosko');
 Route::post('/kebutuhan-logistik', 'KebutuhanLogistikController@tambahKebutuhanLogistik');
 Route::put('/kebutuhan-logistik/{id}', 'KebutuhanLogistikController@ubahKebutuhanLogistik');
 Route::delete('/kebutuhan-logistik/{id}', 'KebutuhanLogistikController@hapusKebutuhanLogistik');
