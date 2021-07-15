@@ -29,8 +29,7 @@ class LogistikMasukController extends Controller
                 'keterangan' => $logistik_masuk->keterangan,
                 'jumlah' => $logistik_masuk->jumlah,
                 'pengirim' => $logistik_masuk->pengirim,
-                'id_posko' => $logistik_masuk->id_posko,
-                'posko_penerima' => $logistik_masuk->posko->nama,
+                'posko_penerima' => $logistik_masuk->posko_penerima,
                 'status' => $logistik_masuk->status,
                 'tanggal' => $logistik_masuk->tanggal,
                 'foto' => $logistik_masuk->foto,
@@ -42,7 +41,7 @@ class LogistikMasukController extends Controller
         return response()->json([
             'message' => ' Berhasil menampilkan data logistik masuk',
             'status' => 200,
-            'data' => $results
+            'data' => $data_logistik_masuk
         ]);
     }
 

@@ -15,29 +15,11 @@ class LogistikKeluarController extends Controller
 
     public function infoLogistikKeluar(){
         $data_logistik_keluar = LogistikKeluar::with('posko')->orderBy('created_at', 'DESC')->get();
-        
-        $results = [];
-        
-        foreach($data_logistik_keluar as $logistik_keluar){
-            $results [] = [
-                'id' => $logistik_keluar->id,
-                'jenis_kebutuhan' => $logistik_keluar->jenis_kebutuhan,
-                'keterangan' => $logistik_keluar->keterangan,
-                'jumlah' => $logistik_keluar->jumlah,
-                'pengirim' => $logistik_keluar->pengirim,
-                'id_posko' => $logistik_keluar->id_posko,
-                'posko_penerima' => $logistik_keluar->posko->nama,
-                'status' => $logistik_keluar->status,
-                'tanggal' => $logistik_keluar->tanggal,
-                'created_at' => $logistik_keluar->created_at,
-                'updated_at' => $logistik_keluar->updated_at,
-            ];
-        }
 
         return response()->json([
             'message' => 'Berhasil menampilkan data logistik keluar',
             'status' => 200,
-            'data' => $results
+            'data' => $data_logistik_keluar
         ],200);
     }
 
