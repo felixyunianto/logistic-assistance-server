@@ -20,15 +20,12 @@ class CreateLogistikMasuksTable extends Migration
             $table->integer('jumlah');
             $table->string('pengirim');
             $table->enum('posko_penerima', ['posko Induk Brebes','posko aju 1 Bumiayu','posko aju 2 Sirampog', 'posko aju 3 Bantarkawung','posko aju 4 Kersana']);
-            // $table->bigInteger('id_posko')->unsigned();
             $table->enum('status', ['Proses', 'Terima']);
             $table->enum('satuan', ['kg', 'liter','dus','unit','buah','ram','lembar','pasang','bungkus','karung','kodi','pak']);
             $table->date('tanggal');
             $table->text('foto')->nullable();
             $table->text('public_id')->nullable();
             $table->timestamps();
-
-            // $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 

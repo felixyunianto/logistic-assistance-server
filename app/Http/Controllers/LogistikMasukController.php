@@ -52,7 +52,7 @@ class LogistikMasukController extends Controller
             'keterangan' => 'required',
             'jumlah' => 'required',
             'pengirim' => 'required',
-            'id_posko' => 'required',
+            'posko_penerima' => 'required',
             'tanggal' => 'required'
         ];
 
@@ -90,9 +90,10 @@ class LogistikMasukController extends Controller
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
             'pengirim' => $request->pengirim,
-            'id_posko' => $request->id_posko,
-            'tanggal' => Carbon::now()->format('Y-m-d'),
-            'status' => 'Proses',
+            'posko_penerima' => $request->posko_penerima,
+            'status' => $request->status,
+            'satuan' => $request->satuan,
+            'tanggal' => $request->tanggal,
             'foto' => $request->foto ?  $foto : null,
             'public_id' => $request->foto ? $public_id : null
         ]);
@@ -112,36 +113,15 @@ class LogistikMasukController extends Controller
                 'error' => 'Akses ini hanya dimiliki oleh admin'
             ],403);
         }
-
-        $rules = [
-            'jenis_kebutuhan' => 'required',
-            'keterangan' => 'required',
-            'jumlah' => 'required',
-            'pengirim' => 'required',
-            'id_posko' => 'required',
-            'tanggal' => 'required'
-        ];
-
-        $messages = [
-            'required' => 'Bidang :attribute tidak boleh kosong',
-        ];
-
-        $validation = Validator::make($request->all(), $rules, $messages);
-
-        if($validation->fails()){
-            return response()->json([
-                'message' => 'Terjadi kesalahan',
-                'status' => 403,
-                'error' => $validation->errors()
-            ],403);
-        }
-
+        
         $data_logistik_masuk = LogistikMasuk::findOrFail($id);
 
         if($request->foto){
             $fileName = Carbon::now()->format('Y-m-d H:i:s').'-'.$request->nama;
-            
-            Cloudinary::destroy($data_logistik_masuk->public_id);
+
+            if($data_logistik_masuk->public_id){
+                Cloudinary::destroy($data_logistik_masuk->public_id);
+            }
 
             $uploadedFile = $request->file('foto')->storeOnCloudinaryAs('Adit/Bencana',$fileName);
 
@@ -154,9 +134,10 @@ class LogistikMasukController extends Controller
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
             'pengirim' => $request->pengirim,
-            'id_posko' => $request->id_posko,
-            'tanggal' => Carbon::now()->format('Y-m-d'),
-            'status' => 'Proses',
+            'posko_penerima' => $request->posko_penerima,
+            'status' => $request->status,
+            'satuan' => $request->satuan,
+            'tanggal' => $request->tanggal,
             'foto' => $request->foto ?  $foto : $data_logistik_masuk->foto,
             'public_id' => $request->foto ? $public_id : $data_logistik_masuk->public_id
         ]);
@@ -170,6 +151,10 @@ class LogistikMasukController extends Controller
 
     public function hapusLogistikMasuk($id) {
         $data_logistik_masuk = LogistikMasuk::findOrFail($id);
+
+        if($data_logistik_masuk->public_id){
+            Cloudinary::destroy($data_logistik_masuk->public_id);
+        }
 
         $data_logistik_masuk->delete();
 

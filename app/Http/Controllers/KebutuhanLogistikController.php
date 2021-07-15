@@ -62,6 +62,7 @@ class KebutuhanLogistikController extends Controller
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
             'status' => $request->status,
+            'satuan' => $request->satuan,
             'tanggal' => $request->tanggal
         ]);
 
