@@ -15,27 +15,10 @@ class DonaturController extends Controller
     public function infoDonatur() {
         $data_donatur = Donatur::orderBy('nama')->get();
 
-        $results = [];
-
-        foreach($data_donatur as $donatur){
-            $results[] = [
-                'id' => $donatur->id,
-                'nama' => $donatur->nama,
-                'jenis_kebutuhan' => $donatur->jenis_kebutuhan,
-                'keterangan' => $donatur->keterangan,
-                'alamat' => $donatur->alamat,
-                'id_posko' => $donatur->id_posko,
-                'tanggal' => $donatur->tanggal,
-                'posko_penerima' => $donatur->posko->nama,
-                'created_at' => $donatur->created_at,
-                'updated_at' => $donatur->updated_at,
-            ];
-        }
-
         return response()->json([
             'message' => 'Berhasil menampilkan data donatur',
             'status' => 200,
-            'data' => $results
+            'data' => $data_donatur
         ],200);
     }
 
@@ -45,7 +28,7 @@ class DonaturController extends Controller
             'jenis_kebutuhan' => 'required',
             'keterangan' => 'required',
             'alamat' => 'required',
-            'id_posko' => 'required',
+            'posko_penerima' => 'required',
             'tanggal' => 'required'
         ];
 
@@ -68,7 +51,7 @@ class DonaturController extends Controller
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,
             'alamat' => $request->alamat,
-            'id_posko' => $request->id_posko,
+            'posko_penerima' => $request->posko_penerima,
             'tanggal' => $request->tanggal
         ]);
 
@@ -80,29 +63,6 @@ class DonaturController extends Controller
     }
 
     public function ubahDonatur(Request $request, $id) {
-        $rules =[
-            'nama' => 'required',
-            'jenis_kebutuhan' => 'required',
-            'keterangan' => 'required',
-            'alamat' => 'required',
-            'id_posko' => 'required',
-            'tanggal' => 'required'
-        ];
-
-        $messages = [
-            'required' => ':attribute tidak boleh kosong'
-        ];
-
-        $validation = Validator::make($request->all(), $rules, $messages);
-
-        if($validation->fails()){
-            return response()->json([
-                'message' => 'Terjadi kesalahan',
-                'status' => 401,
-                'error' => $validation->errors()
-            ], 401);
-        }
-
         $data_donatur = Donatur::findOrFail($id);
 
         $data_donatur->update([
@@ -110,7 +70,7 @@ class DonaturController extends Controller
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,
             'alamat' => $request->alamat,
-            'id_posko' => $request->id_posko,
+            'posko_penerima' => $request->posko_penerima,
             'tanggal' => $request->tanggal
         ]);
 

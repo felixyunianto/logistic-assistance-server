@@ -16,15 +16,12 @@ class CreateDonatursTable extends Migration
         Schema::create('donaturs', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 100);
-            $table->string('jenis_kebutuhan', 20);
+            $table->enum('jenis_kebutuhan', ['sandang','pangan', 'obat obatan', 'paket kematian', 'logistik lainya']);
             $table->text('keterangan');
             $table->text('alamat');
             $table->string('posko_penerima');
-            // $table->bigInteger('id_posko')->unsigned();
             $table->date('tanggal');
             $table->timestamps();
-
-            // $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 
