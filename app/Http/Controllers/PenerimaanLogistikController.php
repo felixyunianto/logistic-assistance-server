@@ -7,6 +7,9 @@ use App\PenerimaanLogistik;
 use Auth;
 use Validator;
 
+use Carbon\Carbon;
+use Cloudinary;
+
 class PenerimaanLogistikController extends Controller
 {
 
@@ -47,14 +50,22 @@ class PenerimaanLogistikController extends Controller
             ], 401);
         }
 
+        $fileName = Carbon::now()->format('Y-m-d H:i:s').'-Logistik';
+        $uploadedFile = $request->file('foto')->storeOnCloudinaryAs('Adit/Bencana',$fileName);
+
+        $foto = $uploadedFile->getSecurePath();
+        $public_id = $uploadedFile->getPublicId();
+
         $data_penerimaan_logistik = PenerimaanLogistik::create([
             'id_posko' => $request->id_posko,
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
-            'status' => 'Proses',
+            'status' => $request->status,
+            'satuan' => $request->satuan,
             'tanggal' => $request->tanggal,
-            'satuan' => $request->satuan
+            'foto' => $request->foto ? $foto : null,
+            'public_id' => $request->foto ? $public_id : null,
         ]);
 
         return response()->json([
@@ -66,15 +77,30 @@ class PenerimaanLogistikController extends Controller
 
     public function ubahPenerimaanLogistik(Request $request, $id){
         $data_penerimaan_logistik = PenerimaanLogistik::findOrFail($id);
+
+        if($request->foto){
+            $fileName = Carbon::now()->format('Y-m-d H:i:s').'-Logistik';
+            
+            if($data_penerimaan_logistik->public_id != null){
+                Cloudinary::destroy($data_penerimaan_logistik->public_id);
+            }
+
+            $uploadedFile = $request->file('foto')->storeOnCloudinaryAs('Adit/Bencana',$fileName);
+
+            $foto = $uploadedFile->getSecurePath();
+            $public_id = $uploadedFile->getPublicId();
+        }
         
         $data_penerimaan_logistik->update([
             'id_posko' => $request->id_posko,
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
-            'status' => 'Proses',
+            'status' => $request->status,
+            'satuan' => $request->satuan,
             'tanggal' => $request->tanggal,
-            'satuan' => $request->satuan
+            'foto' => $request->foto ? $foto : $data_penerimaan_logistik->foto,
+            'public_id' => $request->foto ? $public_id : $data_penerimaan_logistik->public_id,
         ]);
 
         return response()->json([
@@ -86,6 +112,9 @@ class PenerimaanLogistikController extends Controller
 
     public function hapusPenerimaanLogistik($id){
         $data_penerimaan_logistik = PenerimaanLogistik::findOrFail($id);
+        if($data_penerimaan_logistik->public_id){
+            Cloudinary::destroy($data_penerimaan_logistik->public_id);
+        }
         $data_penerimaan_logistik->delete();
 
         return response()->json([

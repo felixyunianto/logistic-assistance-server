@@ -15,16 +15,18 @@ class CreateLogistikKeluarsTable extends Migration
     {
         Schema::create('logistik_keluars', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_kebutuhan',20);
+            $table->enum('jenis_kebutuhan', ['sandang','pangan', 'obat obatan', 'paket kematian', 'logistik lainya']);
             $table->text('keterangan');
             $table->integer('jumlah');
-            $table->string('pengirim');
-            $table->bigInteger('id_posko')->unsigned();
+            $table->enum('pengirim', ['posko Induk Brebes','posko aju 1 Bumiayu','posko aju 2 Sirampog', 'posko aju 3 Bantarkawung','posko aju 4 Kersana']);
+            // $table->bigInteger('id_posko')->unsigned();
+            $table->string('posko_penerima');
             $table->enum('status', ['Proses', 'Terima']);
+            $table->enum('satuan', ['kg', 'liter','dus','unit','buah','ram','lembar','pasang','bungkus','karung','kodi','pak']);
             $table->date('tanggal');
             $table->timestamps();
 
-            $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');
+            // $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 

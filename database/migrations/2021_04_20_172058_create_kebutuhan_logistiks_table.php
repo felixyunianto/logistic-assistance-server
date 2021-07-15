@@ -16,10 +16,11 @@ class CreateKebutuhanLogistiksTable extends Migration
         Schema::create('kebutuhan_logistiks', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_posko')->unsigned();
-            $table->string('jenis_kebutuhan');
+            $table->enum('jenis_kebutuhan', ['sandang','pangan', 'obat obatan', 'paket kematian', 'logistik lainya']);
             $table->text('keterangan');
             $table->integer('jumlah');
             $table->enum('status', ['Terpenuhi', 'Belum Terpenuhi']);
+            $table->enum('satuan', ['kg', 'liter','dus','unit','buah','ram','lembar','pasang','bungkus','karung','kodi','pak']);
             $table->date('tanggal');
             $table->timestamps();
 

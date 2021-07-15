@@ -19,11 +19,12 @@ class CreateDonatursTable extends Migration
             $table->string('jenis_kebutuhan', 20);
             $table->text('keterangan');
             $table->text('alamat');
-            $table->bigInteger('id_posko')->unsigned();
+            $table->string('posko_penerima');
+            // $table->bigInteger('id_posko')->unsigned();
             $table->date('tanggal');
             $table->timestamps();
 
-            $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');
+            // $table->foreign('id_posko')->references('id')->on('poskos')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 
