@@ -16,10 +16,28 @@ class LogistikKeluarController extends Controller
     public function infoLogistikKeluar(){
         $data_logistik_keluar = LogistikKeluar::with('posko')->orderBy('created_at', 'DESC')->get();
 
+        $results = [];
+
+        foreach($data_logistik_keluar as $logistik_keluar){
+            $results[] = [
+                "id" => $logistik_keluar->id,
+                "jenis_kebutuhan" => $logistik_keluar->jenis_kebutuhan,
+                "keterangan" => $logistik_keluar->keterangan,
+                "jumlah" => $logistik_keluar->jumlah,
+                "id_posko_penerima" => $logistik_keluar->id_posko_penerima,
+                "posko_penerima" => $logistik_keluar->posko->nama,
+                "status" => $logistik_keluar->status,
+                "satuan" => $logistik_keluar->satuan,
+                "tanggal" => $logistik_keluar->tanggal,
+                "created_at" => $logistik_keluar->created_at,
+                "updated_at" => $logistik_keluar->updated_at,
+            ];
+        }
+
         return response()->json([
             'message' => 'Berhasil menampilkan data logistik keluar',
             'status' => 200,
-            'data' => $data_logistik_keluar
+            'data' => $results
         ],200);
     }
 
@@ -28,8 +46,7 @@ class LogistikKeluarController extends Controller
             'jenis_kebutuhan' => 'required',
             'keterangan' => 'required',
             'jumlah' => 'required',
-            'pengirim' => 'required',
-            'posko_penerima' => 'required',
+            'id_posko_penerima' => 'required',
             'status' => 'required|in:Proses,Terima',
             'tanggal' => 'required'
         ];
@@ -53,8 +70,7 @@ class LogistikKeluarController extends Controller
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
-            'pengirim' => $request->pengirim,
-            'posko_penerima' => $request->posko_penerima,
+            'id_posko_penerima' => $request->id_posko_penerima,
             'status' => $request->status,
             'satuan' => $request->satuan,
             'tanggal' => $request->tanggal
@@ -74,8 +90,7 @@ class LogistikKeluarController extends Controller
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
-            'pengirim' => $request->pengirim,
-            'posko_penerima' => $request->posko_penerima,
+            'id_posko_penerima' => $request->id_posko_penerima,
             'status' => $request->status,
             'satuan' => $request->satuan,
             'tanggal' => $request->tanggal

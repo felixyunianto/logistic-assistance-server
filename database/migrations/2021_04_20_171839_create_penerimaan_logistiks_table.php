@@ -15,6 +15,7 @@ class CreatePenerimaanLogistiksTable extends Migration
     {
         Schema::create('penerimaan_logistiks', function (Blueprint $table) {
             $table->id();
+            $table->string('pengirim');
             $table->bigInteger('id_posko')->unsigned();
             $table->enum('jenis_kebutuhan', ['sandang','pangan', 'obat obatan', 'paket kematian', 'logistik lainya']);
             $table->text('keterangan');

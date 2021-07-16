@@ -20,10 +20,28 @@ class PenerimaanLogistikController extends Controller
     public function infoPenerimaanLogistik() {
         $data_penerimaan_logistik = PenerimaanLogistik::orderBy('tanggal')->get();
         
+        $results = [];
+
+        foreach($data_penerimaan_logistik as $penerimaan_logistik){
+            $results = [
+                'id' => $penerimaan_logistik->id,
+                'pengirim' => $penerimaan_logistik->pengirim,
+                'id_posko' => $penerimaan_logistik->id_posko,
+                'posko_penerima' => $penerimaan_logistik->posko->nama,
+                'jenis_kebutuhan' => $penerimaan_logistik->jenis_kebutuhan,
+                'keterangan' => $penerimaan_logistik->keterangan,
+                'jumlah'=> $penerimaan_logistik->jumlah,
+                'satuan' => $penerimaan_logistik->satuan,
+                'status' => $penerimaan_logistik->status,
+                'tanggal' => $penerimaan_logistik->tanggal,
+                'foto' => $penerimaan_logistik->foto,
+            ];
+        }
+        
         return response()->json([
             'message' => 'Berhasil menampilkan data penerimaan logistik',
             'status' => 200,
-            'data' => $data_penerimaan_logistik
+            'data' => $results
         ],200);
     }
 
@@ -57,6 +75,7 @@ class PenerimaanLogistikController extends Controller
         $public_id = $uploadedFile->getPublicId();
 
         $data_penerimaan_logistik = PenerimaanLogistik::create([
+            'pengirim' => $request->pengirim,
             'id_posko' => $request->id_posko,
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,
@@ -92,6 +111,7 @@ class PenerimaanLogistikController extends Controller
         }
         
         $data_penerimaan_logistik->update([
+            'pengirim' => $request->pengirim,
             'id_posko' => $request->id_posko,
             'jenis_kebutuhan' => $request->jenis_kebutuhan,
             'keterangan' => $request->keterangan,

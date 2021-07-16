@@ -14,10 +14,30 @@ class KebutuhanLogistikController extends Controller
     public function infoKebutuhanLogistik(){
         $data_kebutuhan_logistik = KebutuhanLogistik::orderBy('created_at','DESC')->get();
 
+        $results = [];
+
+        foreach($data_kebutuhan_logistik as $kebutuhan_logistik){
+            $results[] = [
+                "id" => $kebutuhan_logistik->id,
+                "id_posko" => $kebutuhan_logistik->id_posko,
+                "posko" => $kebutuhan_logistik->posko->nama,
+                "jenis_kebutuhan" => $kebutuhan_logistik->jenis_kebutuhan,
+                "keterangan" => $kebutuhan_logistik->keterangan,
+                "jumlah" => $kebutuhan_logistik->jumlah,
+                "status" => $kebutuhan_logistik->status,
+                "satuan" => $kebutuhan_logistik->satuan,
+                "tanggal" => $kebutuhan_logistik->tanggal,
+                "created_at" => $kebutuhan_logistik->created_at,
+                "updated_at" => $kebutuhan_logistik->updated_at,
+            ];
+        }
+
+
+
         return response()->json([
             'message' => 'Berhasil menampilkan kebutuhan logistik',
             'status' => 200,
-            'data' => $data_kebutuhan_logistik
+            'data' => $results
         ],200);
     }
 
@@ -81,6 +101,7 @@ class KebutuhanLogistikController extends Controller
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
             'status' => $request->status,
+            'satuan' => $request->satuan,
             'tanggal' => $request->tanggal
         ]);
 

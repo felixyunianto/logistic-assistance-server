@@ -10,6 +10,6 @@ class LogistikKeluar extends Model
     protected $guarded = [];
 
     public function posko(){
-        return $this->belongsTo(Posko::class, 'id_posko');
+        return $this->belongsTo(Posko::class, 'id_posko_penerima');
     }
 }

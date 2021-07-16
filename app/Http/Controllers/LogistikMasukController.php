@@ -20,24 +20,6 @@ class LogistikMasukController extends Controller
     public function infoLogistikMasuk() {
         $data_logistik_masuk = LogistikMasuk::orderBy('created_at', 'DESC')->get();
 
-        $results = [];
-
-        foreach($data_logistik_masuk as $logistik_masuk){
-            $results[] = [
-                'id' => $logistik_masuk->id,
-                'jenis_kebutuhan' => $logistik_masuk->jenis_kebutuhan,
-                'keterangan' => $logistik_masuk->keterangan,
-                'jumlah' => $logistik_masuk->jumlah,
-                'pengirim' => $logistik_masuk->pengirim,
-                'posko_penerima' => $logistik_masuk->posko_penerima,
-                'status' => $logistik_masuk->status,
-                'tanggal' => $logistik_masuk->tanggal,
-                'foto' => $logistik_masuk->foto,
-                'created_at' => $logistik_masuk->created_at,
-                'updated_at' => $logistik_masuk->updated_at,
-            ];
-        }
-
         return response()->json([
             'message' => ' Berhasil menampilkan data logistik masuk',
             'status' => 200,
@@ -51,7 +33,6 @@ class LogistikMasukController extends Controller
             'keterangan' => 'required',
             'jumlah' => 'required',
             'pengirim' => 'required',
-            'posko_penerima' => 'required',
             'tanggal' => 'required'
         ];
 
@@ -89,7 +70,6 @@ class LogistikMasukController extends Controller
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
             'pengirim' => $request->pengirim,
-            'posko_penerima' => $request->posko_penerima,
             'status' => $request->status,
             'satuan' => $request->satuan,
             'tanggal' => $request->tanggal,
@@ -133,7 +113,6 @@ class LogistikMasukController extends Controller
             'keterangan' => $request->keterangan,
             'jumlah' => $request->jumlah,
             'pengirim' => $request->pengirim,
-            'posko_penerima' => $request->posko_penerima,
             'status' => $request->status,
             'satuan' => $request->satuan,
             'tanggal' => $request->tanggal,
