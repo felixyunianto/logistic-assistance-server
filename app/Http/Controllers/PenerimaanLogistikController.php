@@ -23,7 +23,7 @@ class PenerimaanLogistikController extends Controller
         $results = [];
 
         foreach($data_penerimaan_logistik as $penerimaan_logistik){
-            $results = [
+            $results[] = [
                 'id' => $penerimaan_logistik->id,
                 'pengirim' => $penerimaan_logistik->pengirim,
                 'id_posko' => $penerimaan_logistik->id_posko,
