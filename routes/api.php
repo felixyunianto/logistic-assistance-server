@@ -77,3 +77,9 @@ Route::get('/logistik-masuk', 'LogistikMasukController@infoLogistikMasuk');
 Route::post('/logistik-masuk', 'LogistikMasukController@tambahLogistikMasuk');
 Route::put('/logistik-masuk/{id}', 'LogistikMasukController@ubahLogistikMasuk');
 Route::delete('/logistik-masuk/{id}', 'LogistikMasukController@hapusLogistikMasuk');
+
+//Penyaluran
+Route::get('/penyaluran', 'PenyaluranController@infoPenyaluran');
+Route::post('/penyaluran', 'PenyaluranController@tambahPenyaluran');
+Route::put('/penyaluran/{id}', 'PenyaluranController@ubahPenyaluran');
+Route::delete('/penyaluran/{id}', 'PenyaluranController@hapusPenyaluran');
